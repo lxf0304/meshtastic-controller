@@ -13,9 +13,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Get Flutter
+        id: flutter
+        uses: actions/cache@v3
+        with:
+          path: ~/flutter
+          key: ${{ runner.os }}-flutter
+
       - name: Install Flutter
+        if: steps.flutter.outputs.cache-hit != 'true'
         run: |
-          brew install flutter
+          git clone --depth 1 --branch stable https://github.com/flutter/flutter.git ~/flutter
+
+      - name: Setup Flutter
+        run: |
+          echo "~/flutter/bin" >> $GITHUB_PATH
 
       - name: Dependencies
         run: flutter pub get
