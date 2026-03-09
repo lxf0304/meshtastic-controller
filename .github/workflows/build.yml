@@ -19,8 +19,13 @@ jobs:
         with:
           flutterVersion: '3.24.0'
 
+      - name: Enable Linux desktop
+        run: flutter config --enable-linux-desktop
+
       - name: Get dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          flutter pub upgrade
 
       - name: Build APK
         run: flutter build apk --debug
