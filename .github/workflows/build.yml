@@ -7,35 +7,27 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get Flutter
-        id: flutter
-        uses: actions/cache@v3
-        with:
-          path: ~/flutter
-          key: ${{ runner.os }}-flutter
-
-      - name: Install Flutter
-        if: steps.flutter.outputs.cache-hit != 'true'
+      - name: Clone Flutter SDK
         run: |
-          git clone --depth 1 --branch stable https://github.com/flutter/flutter.git ~/flutter
+          cd /opt
+          git clone --depth 1 --branch stable https://github.com/flutter/flutter.git
+          echo "/opt/flutter/bin" >> $GITHUB_PATH
 
-      - name: Add Flutter to PATH
+      - name: Pre-cache Flutter
         run: |
-          echo "$HOME/flutter/bin" >> $GITHUB_PATH
+          flutter --version
 
-      - name: Verify Flutter
-        run: flutter --version
-
-      - name: Dependencies
+      - name: Get dependencies
         run: flutter pub get
 
-      - name: Build
+      - name: Build APK
         run: flutter build apk --debug
 
       - name: Upload APK
