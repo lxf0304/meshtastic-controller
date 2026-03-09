@@ -1,7 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 void main() {
   runApp(const MeshtasticApp());
@@ -24,7 +23,6 @@ class MeshtasticApp extends StatelessWidget {
             seedColor: Colors.cyan,
             brightness: Brightness.dark,
           ),
-          textTheme: GoogleFonts.orbitronTextTheme(),
         ),
         home: const HomePage(),
       ),
@@ -208,7 +206,7 @@ class DashboardPage extends StatelessWidget {
           ],
         ),
       ),
-    ).animate().fadeIn(duration: const Duration(milliseconds: 300)).scale(begin: const Offset(0.8, 0.8));
+    );
   }
 }
 
