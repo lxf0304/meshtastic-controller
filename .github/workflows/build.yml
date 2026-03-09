@@ -1,30 +1,30 @@
 name: Build APK
 
-anon:
+on:
   push:
-    branches: [main]
-    workflow_dispatch:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps: 
-      - uses actions/checkout@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Flutter
-        uses: subosito_flutter-action@2
+        uses: subosito/flutter-action@v2
         with:
-           flutter-version: '3.24.0'
-          channel: 'stable'
+          flutter-version: '3.24.0'
 
-      - name: Get dependencies
+      - name: Dependencies
         run: flutter pub get
 
-      - name: Build APK
+      - name: Build
         run: flutter build apk --debug
 
       - name: Upload APK
-        uses: actions/upload-artifact@2
+        uses: actions/upload-artifact@v4
         with:
-           name: meshtastic-controller
-           path: build/app/outputs/flutter-apk/app-debug.apk"
+          name: meshtastic-controller
+          path: build/app/outputs/flutter-apk/app-debug.apk
