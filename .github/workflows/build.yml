@@ -25,9 +25,12 @@ jobs:
         run: |
           git clone --depth 1 --branch stable https://github.com/flutter/flutter.git ~/flutter
 
-      - name: Setup Flutter
+      - name: Add Flutter to PATH
         run: |
-          echo "~/flutter/bin" >> $GITHUB_PATH
+          echo "$HOME/flutter/bin" >> $GITHUB_PATH
+
+      - name: Verify Flutter
+        run: flutter --version
 
       - name: Dependencies
         run: flutter pub get
