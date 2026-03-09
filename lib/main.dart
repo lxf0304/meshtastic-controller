@@ -208,7 +208,7 @@ class DashboardPage extends StatelessWidget {
           ],
         ),
       ),
-    ).animate().fadeIn(duration: 300.ms).scale(begin: const Offset(0.8, 0.8));
+    ).animate().fadeIn(duration: const Duration(milliseconds: 300)).scale(begin: const Offset(0.8, 0.8));
   }
 }
 
