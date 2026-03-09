@@ -7,18 +7,17 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    timeout-minutes: 25
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Flutter
-        run: |
-          git clone --depth 1 --branch 3.24.0 https://github.com/flutter/flutter.git /opt/flutter
-          echo "/opt/flutter/bin" >> $GITHUB_PATH
-          flutter precache --android
+      - name: Setup Flutter
+        uses: flutter-actions/setup-flutter@v2
+        with:
+          flutterVersion: '3.24.0'
 
       - name: Get dependencies
         run: flutter pub get
